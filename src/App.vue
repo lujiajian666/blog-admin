@@ -1,30 +1,27 @@
 <template>
-    <el-container v-if="false">
-      <el-aside width="200px">
-        <aside-page></aside-page>
-      </el-aside>
-      <el-container>
-        <el-header>Header</el-header>
-        <el-main>
-          <router-view></router-view>
-        </el-main>
-      </el-container>
-    </el-container>
-    <router-view v-else>
-    </router-view>
+  <router-view>
+  </router-view>
 </template>
 
 <script>
-  import aside from './page/aside/Aside.vue'
+  import aside from './components/Aside'
   export default {
     name: 'app',
     components: {
       asidePage: aside
+    },
+    mounted() {
+      document.title = "陆家键的个人博客"
     }
   }
 </script>
 
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
