@@ -6,7 +6,7 @@ import cookie from 'js-cookie'
 
 const Index = () => import( /* webpackChunkName: "Index" */ '../page/Index.vue');
 const editArticle = () => import( /* webpackChunkName: "Index" */ '../components/EditArticle.vue');
-const Bar = () => import( /* webpackChunkName: "Bar" */ '../components/Bar.vue');
+const articleList = () => import( /* webpackChunkName: "Bar" */ '../components/ArticleList.vue');
 const Login = () => import( /* webpackChunkName: "login" */ '../page/Login.vue');
 
 const routes = [{
@@ -17,16 +17,15 @@ const routes = [{
     {
         path: '/',
         component: Index,
-        name: 'index',
         children: [{
                 path: '/',
                 component: editArticle,
                 name: 'editArticle'
             },
             {
-                path: 'bar',
-                component: Bar,
-                name: 'bar'
+                path: 'articleList',
+                component: articleList,
+                name: 'articleList'
             }
         ]
     }
