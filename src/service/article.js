@@ -9,8 +9,8 @@ export default {
     add(data) {
       return post(this.url.add, data)
     },
-    get() {
-      return get(this.url.get)
+    get(data) {
+      return get(this.url.get, data)
     },
     del(data) {
       return get(this.url.del, data)

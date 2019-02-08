@@ -14,6 +14,9 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination :page-size="pageSize" layout="prev, pager, next" :total="total" 
+    :current-page.sync="currentPage" @current-change="get">
+    </el-pagination>
   </div>
 </template>
 
@@ -22,33 +25,40 @@
   export default {
     data() {
       return {
-        tableData: []
+        tableData: [],
+        pageSize: 10,
+        total: 0,
+        currentPage: 1
       }
     },
     created() {
-      articleService.get().then(res => {
-        this.tableData.push(...res.data)
-        console.log(this.tableData)
-      })
+      this.get()
     },
     methods: {
+      get() {
+        articleService.get({
+          currentPage: this.currentPage,
+          pageSize: this.pageSize
+        }).then(res => {
+          this.tableData = res.data.list;
+          this.total = res.data.total;
+          this.currentPage = res.data.currentPage;
+        })
+      },
       del(data) {
         articleService.del({
           id: data.id
         }).then(res => {
-          if(res.data > 0) {
-            this.tableData.forEach((element, index)=> {
-              this.tableData.splice(index, 1);
-              this.$message({
-                message:'删除成功',
-                type: 'success'
-              });
+          this.tableData.forEach((element, index) => {
+            this.tableData.splice(index, 1);
+            this.$message({
+              message: '删除成功',
+              type: 'success'
             });
-          }
+          });
         })
       }
     }
-
   }
 </script>
 
