@@ -43,6 +43,10 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
+<style lang="less">
+  .page-aside {
+    .el-menu {
+      border: none
+    }
+  }
 </style>

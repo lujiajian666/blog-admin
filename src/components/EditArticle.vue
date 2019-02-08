@@ -1,5 +1,9 @@
 <template>
   <div class="editArticle">
+    <div style="margin-bottom: 50px; width: 40%">
+        <el-input v-model="title" placeholder="请输入标题"></el-input>
+    </div>
+    
     <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption"
       @blur="onEditorBlur($event)" 
       @focus="onEditorFocus($event)"
@@ -17,6 +21,7 @@ import articleService from '../service/article'
     data() {
       return {
         content: null,
+        title: '',
         editorOption: {
           height: '400px'
         }
@@ -31,9 +36,16 @@ import articleService from '../service/article'
       },
       submit() {
         articleService.add({
-          text: this.content
+          text: this.content,
+          title: this.title
         }).then(res => {
-          console.log(res);
+          if(res.ret === 0) {
+            this.$message({
+              message: '添加成功',
+              type: 'success'
+            });
+            this.$router.push({name: 'articleList'})
+          }
         })
       }
     }
@@ -43,7 +55,6 @@ import articleService from '../service/article'
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
  .editArticle {
-   height: 500px;
    .ql-container {
       height: 300px;
    }
