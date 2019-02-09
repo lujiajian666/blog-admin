@@ -5,10 +5,11 @@
         </el-aside>
         <el-container>
             <el-header>
-                <el-breadcrumb separator="/" >
-                    <el-breadcrumb-item v-for="(value, index) in path" :key="index" 
-                    :to="{ name: value.to }">{{value.title}}</el-breadcrumb-item>
-                </el-breadcrumb>
+                <div class="header">
+                    <el-breadcrumb separator="/">
+                        <el-breadcrumb-item v-for="(value, index) in path" :key="index" :to="{ name: value.to }">{{value.title}}</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
             </el-header>
             <el-main>
                 <router-view></router-view>
@@ -19,21 +20,23 @@
 
 <script>
     import aside from '../components/Aside.vue';
-    import { mapState } from 'vuex'
+    import {
+        mapState
+    } from 'vuex'
     export default {
         name: 'app',
         components: {
             asidePage: aside
         },
         computed: {
-          ...mapState([
-            'path'
-          ])
+            ...mapState([
+                'path'
+            ])
         }
     }
 </script>
 
-<style>
+<style lang="less">
     * {
         margin: 0;
         padding: 0;
@@ -46,5 +49,13 @@
         text-align: center;
         color: #2c3e50;
         margin-top: 60px;
+    }
+
+    .header {
+        line-height: 60px;
+        .el-breadcrumb {
+            font-size: 14px;
+            line-height: inherit;
+        }
     }
 </style>

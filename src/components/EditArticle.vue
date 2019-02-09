@@ -27,6 +27,12 @@ import articleService from '../service/article'
         }
       }
     },
+    created(){
+      if(this.$route.params.id) {
+        const article = this.$store.state.articleData;
+        ({text: this.content, title: this.title}  =  article)
+      }
+    },
     methods: {
       onEditorBlur() { //失去焦点事件
       },

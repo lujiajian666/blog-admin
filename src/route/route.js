@@ -18,7 +18,7 @@ const routes = [{
         path: '/',
         component: Index,
         children: [{
-                path: '/',
+                path: 'editArticle/:id?',
                 component: editArticle,
                 name: 'editArticle'
             },

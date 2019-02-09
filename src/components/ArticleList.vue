@@ -14,14 +14,14 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination :page-size="pageSize" layout="prev, pager, next" :total="total" 
-    :current-page.sync="currentPage" @current-change="get">
+    <el-pagination :page-size="pageSize" layout="prev, pager, next" :total="total" :current-page.sync="currentPage"
+      @current-change="get">
     </el-pagination>
   </div>
 </template>
 
 <script>
-  import articleService from '../service/article'
+  import articleService from '@service/article'
   export default {
     data() {
       return {
@@ -50,13 +50,24 @@
           id: data.id
         }).then(res => {
           this.tableData.forEach((element, index) => {
-            this.tableData.splice(index, 1);
-            this.$message({
-              message: '删除成功',
-              type: 'success'
-            });
+            if (element.id === data.id) {
+              this.tableData.splice(index, 1);
+              this.$message({
+                message: '删除成功',
+                type: 'success'
+              });
+            }
           });
         })
+      },
+      edit(data) {
+        this.$store.commit('saveArticle', data);
+        this.$router.push({
+          name: 'editArticle',
+          params: {
+            id: data.id
+          }
+        });
       }
     }
   }

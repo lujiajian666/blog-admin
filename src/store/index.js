@@ -4,25 +4,22 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        path: []
+        path: [],
+        articleData: null
     },
     mutations: {
-        addPath(state, {title, to}) {
-            state.path.push({
-                title,
-                to
-            })
+        addPath(state, path) {
+            state.path = path
         },
-        deletePath(state) {
-            state.path.pop()
+        saveArticle(state, obj) {
+            state.articleData = obj
         }
     },
     actions: {
         addPath({
             commit
-        }, { title, to }) {
-            commit('deletePath');
-            commit('addPath', { title, to });
+        },  path) {
+            commit('addPath', path);
         }
     }
 })
