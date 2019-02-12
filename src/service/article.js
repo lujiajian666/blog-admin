@@ -3,7 +3,8 @@ export default {
     url: {
         add: '/article/add',
         get: '/article/get',
-        del: '/article/del'
+        del: '/article/del',
+        update: '/article/update'
     },
 
     add(data) {
@@ -14,5 +15,8 @@ export default {
     },
     del(data) {
       return get(this.url.del, data)
+    },
+    update(data) {
+      return post(this.url.update, data)
     }
 }

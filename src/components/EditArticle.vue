@@ -1,12 +1,10 @@
 <template>
   <div class="editArticle">
     <div style="margin-bottom: 50px; width: 40%">
-        <el-input v-model="title" placeholder="请输入标题"></el-input>
+      <el-input v-model="title" placeholder="请输入标题"></el-input>
     </div>
-    
-    <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption"
-      @blur="onEditorBlur($event)" 
-      @focus="onEditorFocus($event)"
+
+    <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
       @change="onEditorChange($event)">
     </quill-editor>
 
@@ -15,7 +13,7 @@
 </template>
 
 <script>
-import articleService from '../service/article'
+  import articleService from '../service/article'
   export default {
     name: 'editArticle',
     data() {
@@ -27,10 +25,13 @@ import articleService from '../service/article'
         }
       }
     },
-    created(){
-      if(this.$route.params.id) {
+    created() {
+      if (this.$route.params.id) {
         const article = this.$store.state.articleData;
-        ({text: this.content, title: this.title}  =  article)
+        ({
+          text: this.content,
+          title: this.title
+        } = article)
       }
     },
     methods: {
@@ -41,18 +42,36 @@ import articleService from '../service/article'
       onEditorChange() { //内容改变事件
       },
       submit() {
-        articleService.add({
-          text: this.content,
-          title: this.title
-        }).then(res => {
-          if(res.ret === 0) {
+        if (!this.$route.params.id) {
+          articleService.add({
+            text: this.content,
+            title: this.title
+          }).then(res => {
+            if (res.ret === 0) {
+              this.$message({
+                message: '添加成功',
+                type: 'success'
+              });
+              this.$router.push({
+                name: 'articleList'
+              })
+            }
+          })
+        } else {
+          articleService.update({
+            text: this.content,
+            title: this.title,
+            id: this.$route.params.id
+          }).then(res => {
             this.$message({
-              message: '添加成功',
+              message: res.msg || '更新成功',
               type: 'success'
-            });
-            this.$router.push({name: 'articleList'})
-          }
-        })
+            })
+            this.$router.push({
+              name: 'articleList'
+            })
+          })
+        }
       }
     }
   }
@@ -60,9 +79,9 @@ import articleService from '../service/article'
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
- .editArticle {
-   .ql-container {
+  .editArticle {
+    .ql-container {
       height: 300px;
-   }
- }
+    }
+  }
 </style>
