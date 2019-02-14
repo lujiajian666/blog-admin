@@ -36,7 +36,14 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console":  "off",
+      "no-debugger":  "off",
+      "indent": ["off", 4],
+      "eol-last": "off",
+      "no-unused-expressions": "off",
+      "no-unused-vars": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
