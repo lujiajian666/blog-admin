@@ -4,9 +4,34 @@
       <el-input v-model="title" placeholder="请输入标题"></el-input>
     </div>
 
-    <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-      @change="onEditorChange($event)">
-    </quill-editor>
+    <el-switch v-model="turnOn" active-text="启用" inactive-text="停用"></el-switch>
+
+    <br>
+    <br>
+    <br>
+
+    <div>
+      <el-tag
+        v-for="tag in tags"
+        :key="tag.name"
+        closable
+        :type="tag.type"
+        @close="handleClose(tag)"
+      >{{tag.name}}</el-tag>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <quill-editor
+      v-model="content"
+      ref="myQuillEditor"
+      :options="editorOption"
+      @blur="onEditorBlur($event)"
+      @focus="onEditorFocus($event)"
+      @change="onEditorChange($event)"
+    ></quill-editor>
 
     <el-button type="primary" style="margin-top: 30px" @click="submit">提交</el-button>
   </div>
@@ -20,9 +45,31 @@
       return {
         content: null,
         title: '',
+        turnOn: false,
         editorOption: {
           height: '400px'
-        }
+        },
+        tags: [{
+            name: '标签一',
+            type: ''
+          },
+          {
+            name: '标签二',
+            type: 'success'
+          },
+          {
+            name: '标签三',
+            type: 'info'
+          },
+          {
+            name: '标签四',
+            type: 'warning'
+          },
+          {
+            name: '标签五',
+            type: 'danger'
+          }
+        ]
       }
     },
     created() {
@@ -30,7 +77,8 @@
         const article = this.$store.state.articleData;
         ({
           text: this.content,
-          title: this.title
+          title: this.title,
+          status: this.turnOn 
         } = article)
       }
     },
@@ -45,7 +93,8 @@
         if (!this.$route.params.id) {
           articleService.add({
             text: this.content,
-            title: this.title
+            title: this.title,
+            status: this.turnOn ? 1: 0
           }).then(res => {
             if (res.ret === 0) {
               this.$message({
@@ -61,7 +110,8 @@
           articleService.update({
             text: this.content,
             title: this.title,
-            id: this.$route.params.id
+            id: this.$route.params.id,
+            status: this.turnOn ? 1: 0
           }).then(res => {
             this.$message({
               message: res.msg || '更新成功',
@@ -72,6 +122,10 @@
             })
           })
         }
+      },
+      //删除tag事件
+      handleClose(tag) {
+        this.tags.splice(this.tags.indexOf(tag), 1);
       }
     }
   }
@@ -79,9 +133,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
-  .editArticle {
-    .ql-container {
-      height: 300px;
+.editArticle {
+  .ql-container {
+    height: 300px;
+  }
+
+  .el-tag {
+    &:not(:last-of-type) {
+      margin-right: 10px;
     }
   }
+}
 </style>

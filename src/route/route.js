@@ -4,10 +4,15 @@ Vue.use(VueRouter);
 
 import cookie from 'js-cookie'
 
-const Index = () => import( /* webpackChunkName: "Index" */ '../page/Index.vue');
 const editArticle = () => import( /* webpackChunkName: "Index" */ '../components/EditArticle.vue');
 const articleList = () => import( /* webpackChunkName: "Bar" */ '../components/ArticleList.vue');
+const TypeList = () => import( /* webpackChunkName: "TypeList" */ '../components/TypeList.vue');
+const TypeEdit = () => import( /* webpackChunkName: "TypeEdit" */ '../components/TypeEdit.vue');
+
 const Login = () => import( /* webpackChunkName: "login" */ '../page/Login.vue');
+const Index = () => import( /* webpackChunkName: "Index" */ '../page/Index.vue');
+
+
 
 const routes = [{
         path: '/login',
@@ -26,6 +31,16 @@ const routes = [{
                 path: 'articleList',
                 component: articleList,
                 name: 'articleList'
+            },
+            {
+                path: 'typeList',
+                component: TypeList,
+                name: 'typeList'
+            },
+            {
+                path: 'typeEdit/:id?',
+                component: TypeEdit,
+                name: 'typeEdit'
             }
         ]
     }

@@ -13,6 +13,14 @@
           <el-menu-item index="1-2" :route="{name: 'articleList'}">文章列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
+      <el-submenu index="2">
+        <template slot="title">
+           <i class="el-icon-star-off"></i>
+           <span>类别</span>
+        </template>
+        <el-menu-item index="2-1" :route="{name: 'typeList'}">列表</el-menu-item>
+        <el-menu-item index="2-2" :route="{name: 'typeEdit'}">添加/编辑</el-menu-item>
+      </el-submenu>
     </el-menu>
   </div>
 </template>
@@ -27,18 +35,38 @@
           article: {
             edit: [{
               title: '文章',
-              to: ''
+              to: 'articleList'
             }, {
               title: '添加文章',
               to: 'editArticle'
             }],
             list: [{
               title: '文章',
-              to: ''
+              to: 'articleList'
             }, {
               title: '文章列表',
               to: 'articleList'
             }]
+          },
+          type: {
+            list: [{
+                title: '类别',
+                to: 'typeList'
+              },
+              {
+                title: '类别列表',
+                to: 'typeList'
+              }
+            ],
+            edit: [{
+                title: '类别',
+                to: 'typeList'
+              },
+              {
+                title: '类别变更',
+                to: 'typeEdit'
+              }
+            ]
           }
         }
       }
@@ -47,7 +75,7 @@
       msg: String
     },
     methods: {
-    
+
     },
     computed: {
       asideIndex() {
@@ -55,7 +83,9 @@
         //更新面包屑
         const breadcrumbIndexMap = {
           'editArticle': this.path.article.edit,
-          'articleList': this.path.article.list
+          'articleList': this.path.article.list,
+          'typeList': this.path.type.list,
+          'typeEdit': this.path.type.edit
         }
         this.$store.dispatch('addPath', breadcrumbIndexMap[index])
         //更新aside选中项

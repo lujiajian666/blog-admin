@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import config from '../config'
 function handler(res) {
     if (res.status === 200) {
         let data = res.data;
@@ -20,7 +20,7 @@ function get(url, params, headers) {
         params,
         headers,
         withCredentials: false,
-        baseURL: 'http://localhost:8888'
+        baseURL: config.baseUrl
     }).then(res => {
         return handler(res)
     })
@@ -33,7 +33,7 @@ function post(url, data, headers) {
         headers,
         withCredentials: false,
         method: 'post',
-        baseURL: 'http://localhost:8888'
+        baseURL: config.baseUrl
     }).then(res => {
         return handler(res)
     })

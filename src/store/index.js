@@ -5,14 +5,18 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         path: [],
-        articleData: null
+        articleData: null,
+        typeData: null
     },
     mutations: {
         addPath(state, path) {
             state.path = path
         },
         saveArticle(state, obj) {
-            state.articleData = obj
+            state.articleData = obj;
+        },
+        saveType(state, obj) {
+            state.typeData = obj;
         }
     },
     actions: {

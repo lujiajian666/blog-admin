@@ -35,7 +35,7 @@
     },
     methods: {
       onSubmit() {
-        post('/login', this.form).then(res => {
+        post('/article/login', this.form).then(res => {
           cookie.set('username', this.form.username);
           this.$router.push({
             name: 'editArticle'

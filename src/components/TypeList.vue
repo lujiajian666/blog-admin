@@ -3,9 +3,7 @@
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="id" label="id">
       </el-table-column>
-      <el-table-column prop="title" label="标题">
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间">
+      <el-table-column prop="name" label="类别">
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
@@ -21,7 +19,7 @@
 </template>
 
 <script>
-  import articleService from '@service/article'
+  import typeService from '@service/type'
   export default {
     data() {
       return {
@@ -36,8 +34,7 @@
     },
     methods: {
       get() {
-        articleService.get({
-          all: true,
+        typeService.get({
           currentPage: this.currentPage,
           pageSize: this.pageSize
         }).then(res => {
@@ -62,9 +59,9 @@
         })
       },
       edit(data) {
-        this.$store.commit('saveArticle', data);
+        this.$store.commit('saveType', data);
         this.$router.push({
-          name: 'editArticle',
+          name: 'typeEdit',
           params: {
             id: data.id
           }
