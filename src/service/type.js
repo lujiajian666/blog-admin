@@ -3,7 +3,7 @@ export default {
     url: {
         add: '/article/type/add',
         get: '/article/type/get',
-        del: '/article/type/del',
+        del: '/article/type/delete',
         update: '/article/type/update'
     },
 
