@@ -44,7 +44,7 @@
         })
       },
       del(data) {
-        articleService.del({
+        typeService.del({
           id: data.id
         }).then(res => {
           this.tableData.forEach((element, index) => {
