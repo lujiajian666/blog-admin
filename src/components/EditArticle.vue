@@ -94,11 +94,9 @@
       onEditorChange() { //内容改变事件
       },
       submit() {
-        const types = this.tags.map(item => {
-          if (item.type === 'success') {
-            return item.id
-          }
-        });
+        const types = this.tags.filter(item => {
+          return item.type === 'success'
+        }).map(item => item.id)
         if (!this.$route.params.id) {
           articleService.add({
             text: this.content,
