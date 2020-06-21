@@ -37,9 +37,12 @@
       "eslint:recommended"
     ],
     "rules": {
-      "no-console":  "off",
-      "no-debugger":  "off",
-      "indent": ["off", 4],
+      "no-console": "off",
+      "no-debugger": "off",
+      "indent": [
+        "off",
+        4
+      ],
       "eol-last": "off",
       "no-unused-expressions": "off",
       "no-unused-vars": "off"

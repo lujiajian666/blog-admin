@@ -5,10 +5,13 @@
     </div>
 
     <el-switch v-model="turnOn" active-text="启用" inactive-text="停用"></el-switch>
+    <br>
+    <br>
+    <br>
 
-    <br>
-    <br>
-    <br>
+    <div style="margin-bottom: 50px; width: 40%">
+      <el-input v-model="markdownName" placeholder="请输入要使用的markdown名称"></el-input>
+    </div>
 
     <div>
       <el-tag v-for="tag in tags" :key="tag.id" closable :type="tag.type" @close="handleClose(tag)"
@@ -41,7 +44,8 @@
           height: '400px'
         },
         tagTypes: ['success', 'danger'],
-        tags: []
+        tags: [],
+        markdownName: ''
       }
     },
     created() {
@@ -57,7 +61,8 @@
             text: this.content,
             title: this.title,
             status: this.turnOn,
-            types: myTags
+            types: myTags,
+            markdown_name: this.markdownName
           } = ret.data);
           this.turnOn = !!this.turnOn;
         });
@@ -71,7 +76,6 @@
           return item;
         }))
       }).then(_ => {
-        console.log(myTags)
         if (myTags) {
           myTags.split(";").forEach(item => {
             this.tags.some(item2 => {
@@ -102,7 +106,8 @@
             text: this.content,
             title: this.title,
             status: this.turnOn ? 1 : 0,
-            types: types.join(";")
+            types: types.join(";"),
+            markdownName: this.markdownName
           }).then(res => {
             if (res.ret === 0) {
               this.$message({
@@ -120,7 +125,8 @@
             title: this.title,
             id: this.$route.params.id,
             status: this.turnOn ? 1 : 0,
-            types: types.join(";")
+            types: types.join(";"),
+            markdownName: this.markdownName
           }).then(res => {
             this.$message({
               message: res.msg || '更新成功',
