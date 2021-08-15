@@ -3,7 +3,7 @@ const develop = {
   }
   
   const product = {
-    baseUrl: 'http://www.lujiajian.xyz'
+    baseUrl: 'https://www.lujiajian.xyz'
   }
   
   export default product
